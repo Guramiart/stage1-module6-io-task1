@@ -16,6 +16,7 @@ public class FileReader {
             while ((ch = fileReader.read()) != -1) {
                 stringBuilder.append((char) ch);
             }
+            System.out.println(stringBuilder);
             dataMap = getMapFromString(stringBuilder.toString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,7 +44,7 @@ public class FileReader {
 
     private Map<String, String> getMapFromString(String str) {
         Map<String, String> resultMap = new HashMap<>();
-        String[] data = str.split("\r\n");
+        String[] data = str.split(System.lineSeparator());
         for (String el : data) {
             String[] dataArray = el.split(":");
             if (dataArray.length == 2) {
