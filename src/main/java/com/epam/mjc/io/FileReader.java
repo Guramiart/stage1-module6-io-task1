@@ -16,7 +16,6 @@ public class FileReader {
             while ((ch = fileReader.read()) != -1) {
                 stringBuilder.append((char) ch);
             }
-            System.out.println(stringBuilder);
             dataMap = getMapFromString(stringBuilder.toString());
         } catch (IOException e) {
             e.printStackTrace();
