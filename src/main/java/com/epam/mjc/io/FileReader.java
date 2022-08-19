@@ -20,23 +20,39 @@ public class FileReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if(dataMap.isEmpty()) {
+        if (dataMap.isEmpty()) {
             return new Profile();
         } else {
-            return new Profile(dataMap.get("Name"),
-                    Integer.parseInt(dataMap.get("Age")),
-                    dataMap.get("Email"),
-                    Long.parseLong(dataMap.get("Phone")));
+            String name = dataMap.get("Name");
+            String email = dataMap.get("Email");
+            Integer age;
+            try {
+                age = Integer.parseInt(dataMap.get("Age"));
+            } catch (NumberFormatException e) {
+                age = null;
+            }
+            Long phone;
+            try {
+                phone = Long.parseLong(dataMap.get("Phone"));
+            } catch (NumberFormatException e) {
+                phone = null;
+            }
+            return new Profile(name, age, email, phone);
         }
     }
 
-    private Map<String, String> getMapFromString(String str){
+    private Map<String, String> getMapFromString(String str) {
         Map<String, String> resultMap = new HashMap<>();
         String[] data = str.split("\r\n");
-        for(String el : data) {
+        for (String el : data) {
             String[] dataArray = el.split(":");
-            resultMap.put(dataArray[0].trim(), dataArray[1].trim());
+            if (dataArray.length == 2) {
+                resultMap.put(dataArray[0].trim(), dataArray[1].trim());
+            } else {
+                resultMap.put(dataArray[0].trim(), null);
+            }
         }
         return resultMap;
     }
+
 }
